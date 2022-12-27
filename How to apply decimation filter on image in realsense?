@@ -46,22 +46,20 @@ try:
         frames = pipeline.wait_for_frames()
         decimated = decimate.process(frames).as_frameset()
         aligned_frames = align.process(decimated)
-        depth_frame = frames.get_depth_frame()
-        color_frame = frames.get_color_frame()
+        depth_frame = aligned_frames.get_depth_frame()
+        color_frame = aligned_frames.get_color_frame()
 
  
 
         if not depth_frame or not color_frame:
             continue
-  #      depth_image = depth_frame.apply_filter(align).apply_filter(decimate)
 
         # Convert images to numpy arrays
         depth_image = np.asanyarray(depth_frame.get_data())
-        cv2.imwrite('/home/basit/Realsense/Pics/d.png', depth_image)        
-      #  cv2.imwrite('/home/basit/Realsense/Pics/filtered.png', filtered_image)
+        cv2.imwrite('/home/Pics/depth.png', depth_image)        
 
         color_image = np.asanyarray(color_frame.get_data())
-        cv2.imwrite('/home/basit/Realsense/Pics/c.png', color_image)
+        cv2.imwrite('/home/Pics/color.png', color_image)
         # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
         depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
 

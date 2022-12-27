@@ -35,7 +35,7 @@ device = profile.get_device()
 depth_sensor = device.first_depth_sensor()
 device.hardware_reset()
 
-decimate = rs.decimation_filter(2)
+decimate = rs.decimation_filter(8) #range 2-8
 align_to = rs.stream.color
 align = rs.align(align_to)
 
